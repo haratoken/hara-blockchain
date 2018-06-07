@@ -71,3 +71,8 @@ typings/
 
 # docker ignore
 .dockerignore
+
+# test results
+.nyc_output/*
+coverage/*
+xunit.xml

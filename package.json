@@ -6,16 +6,34 @@
   "dependencies": {},
   "devDependencies": {
     "mocha": "^5.2.0",
+    "mocha-multi-reporters": "^1.1.7",
     "nyc": "^12.0.2",
     "web3": "^1.0.0-beta.34"
   },
   "scripts": {
-    "test": "nyc mocha"
+    "test": "nyc mocha --reporter=mocha-multi-reporters"
   },
   "repository": {
     "type": "git",
     "url": "https://dattabot.visualstudio.com/Blockchain/_git/hara-blockchain"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "nyc": {
+    "check-coverage": true,
+    "per-file": true,
+    "lines": 99,
+    "statements": 99,
+    "functions": 99,
+    "branches": 99,
+    "include": [
+      "lib/**/*.js"
+    ],
+    "reporter": [
+      "text",
+      "cobertura",
+      "html"
+    ],
+    "report-dir": "./coverage"
+  }
 }
