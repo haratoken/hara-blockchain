@@ -8,7 +8,9 @@ services:
   hara:
     image: hara_blockchain:dev
     environment:
-    - DEVELOPMENT_PROVIDER=ganache:8545
+    - DEVELOPMENT_PROVIDER=ganache:8545    
     command: npm test test/unit_test/*
     depends_on:
     - ganache
+    volumes:
+      - .:/home/blockchain
