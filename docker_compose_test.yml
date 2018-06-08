@@ -1,0 +1,16 @@
+version: '3'
+services:
+  ganache:
+    image: trufflesuite/ganache-cli
+    command: ganache-cli -h 0.0.0.0
+    ports:
+      - "7000:8545"
+  hara:
+    image: hara_blockchain:dev
+    environment:
+    - DEVELOPMENT_PROVIDER=ganache:8545    
+    command: bash -c "npm install && npm test test/unit_test/*"
+    depends_on:
+    - ganache
+    volumes:
+      - .:/home/blockchain
