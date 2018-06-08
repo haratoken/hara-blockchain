@@ -6,12 +6,13 @@
   "dependencies": {},
   "devDependencies": {
     "mocha": "^5.2.0",
+    "mocha-junit-reporter": "^1.17.0",
     "mocha-multi-reporters": "^1.1.7",
     "nyc": "^12.0.2",
     "web3": "^1.0.0-beta.34"
   },
   "scripts": {
-    "test": "nyc mocha --reporter=mocha-multi-reporters"
+    "test": "nyc mocha --reporter=mocha-multi-reporters --reporter mocha-junit-reporter --reporter-options mochaFile=test-results.xml"
   },
   "repository": {
     "type": "git",
@@ -22,10 +23,6 @@
   "nyc": {
     "check-coverage": true,
     "per-file": true,
-    "lines": 99,
-    "statements": 99,
-    "functions": 99,
-    "branches": 99,
     "include": [
       "lib/**/*.js"
     ],

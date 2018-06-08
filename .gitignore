@@ -76,3 +76,4 @@ typings/
 .nyc_output/*
 coverage/*
 xunit.xml
+test-results.xml
