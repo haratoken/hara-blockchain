@@ -9,7 +9,7 @@ services:
     image: hara_blockchain:dev
     environment:
     - DEVELOPMENT_PROVIDER=ganache:8545    
-    command: npm test test/unit_test/*
+    command: bash -c "npm install && npm test test/unit_test/*"
     depends_on:
     - ganache
     volumes:

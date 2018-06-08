@@ -5,5 +5,4 @@ RUN apk update && \
     rm -rf /var/cache/apk/*
 RUN mkdir /home/blockchain
 WORKDIR /home/blockchain
-COPY . . 
-RUN npm install
+COPY . .
