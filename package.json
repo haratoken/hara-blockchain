@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://dattabot.visualstudio.com/Blockchain/_git/hara-blockchain"
+    "url": "https://github.com/dattabot-blockchain/hara-blockchain.git"
   },
   "author": "",
   "license": "ISC",
