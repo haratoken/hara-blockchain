@@ -9,6 +9,7 @@
     "mocha-junit-reporter": "^1.17.0",
     "mocha-multi-reporters": "^1.1.7",
     "nyc": "^12.0.2",
+    "secrets.js-grempe": "^1.1.0",
     "web3": "^1.0.0-beta.34"
   },
   "scripts": {
