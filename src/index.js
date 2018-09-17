@@ -64,4 +64,17 @@ export default class HaraTokenSDK {
 
     return _result.data;
   };
+
+  _call = async (functionName, params) => {
+    if(this.is_mock) return getTransactionsMock;
+
+    let _result = await Axios.get(this.endpoint + "/get_alias_functions", {
+      params: {
+        function: functionName,
+        params: JSON.stringify(params)
+      }
+    });
+
+    return _result.data;
+  }
 }

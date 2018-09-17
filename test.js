@@ -1,6 +1,6 @@
 let HaraTokenSDK = require("./lib/library").default;
 
-let HartSDK = new HaraTokenSDK(true);
+let HartSDK = new HaraTokenSDK(false);
 
 /**
  * this function get user balance
@@ -11,7 +11,7 @@ let getBalance = HartSDK._getUserBalance(
 );
 
 getBalance.then(function(res) {
-    console.log(res);
+  //   console.log(res);
 });
 
 /**
@@ -21,7 +21,7 @@ getBalance.then(function(res) {
 let getBlocks = HartSDK._getBlocks(1, 10);
 
 getBlocks.then(function(res) {
-    console.log(res);
+  //   console.log(res);
 });
 
 /**
@@ -43,5 +43,41 @@ let getDetailTransaction = HartSDK._getDetailTransaction(
 );
 
 getDetailTransaction.then(function(res) {
-    // console.log(res);
+  // console.log(res);
+});
+
+/**
+ * this function will call all web3 functions manually, by proxy command that alias on backend url
+ * @param {string} # (transaction hash)
+ */
+let getCall = HartSDK._call("getTransaction", [
+  "0xfae265d344bb13ecd6f3d4456f10275c642fe74fbbee7e4919ad2f0a506b54a4"
+]);
+
+getCall.then(function(res) {
+  console.log(res);
+});
+
+/**
+ * this function will call all web3 functions manually, by proxy command that alias on backend url
+ * @param {string} # (transaction hash)
+ */
+let _getBalance = HartSDK._call("getBalance", [
+  "0x2A4FEB48B3bC241C4bD3b7A9B420683deB572A58"
+]);
+
+_getBalance.then(function(res) {
+  console.log(res);
+});
+
+let getLatestBlock = HartSDK._call("getBlock", ["latest"]);
+
+getLatestBlock.then(function(res) {
+  console.log(res);
+});
+
+let getTotalSupply = HartSDK._call("getTotalSupply", []);
+
+getTotalSupply.then(function(res) {
+  console.log(res);
 });
