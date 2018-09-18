@@ -65,6 +65,21 @@ export default class HaraTokenSDK {
     return _result.data;
   };
 
+  _getTransactionsByAddress = async (page, limit, from, to) => {
+    if(this.is_mock) return getTransactionsMock;
+
+    let _result = await Axios.get(this.endpoint + "/get_transactions_by_address", {
+      params: {
+        page: page,
+        limit: limit,
+        from,
+        to
+      }
+    });
+
+    return _result.data;
+  };
+
   _call = async (functionName, params) => {
     if(this.is_mock) return getTransactionsMock;
 
