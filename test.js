@@ -1,6 +1,6 @@
 let HaraTokenSDK = require("./lib/library").default;
 
-let HartSDK = new HaraTokenSDK(false);
+let HartSDK = new HaraTokenSDK(true);
 
 /**
  * this function get user balance
@@ -55,7 +55,7 @@ let getCall = HartSDK._call("getTransaction", [
 ]);
 
 getCall.then(function(res) {
-  console.log(res);
+  // console.log(res);
 });
 
 /**
@@ -67,17 +67,24 @@ let _getBalance = HartSDK._call("getBalance", [
 ]);
 
 _getBalance.then(function(res) {
-  console.log(res);
+  // console.log(res);
 });
 
+/**
+ * get latest block from privatenet
+ */
 let getLatestBlock = HartSDK._call("getBlock", ["latest"]);
 
 getLatestBlock.then(function(res) {
-  console.log(res);
+  // console.log(res);
 });
 
-let getTotalSupply = HartSDK._call("getTotalSupply", []);
+/**
+ * get total transaction
+ */
+let getTotalTransaction = HartSDK._getTotalTransaction();
 
-getTotalSupply.then(function(res) {
-  console.log(res);
-});
+getTotalTransaction.then(function(res) {
+  console.log("total transaction", res);
+})
+

@@ -3,6 +3,11 @@ export const getBalanceMock = {
   data: "497993899999966080698"
 };
 
+export const getTotalTransaction = {
+  message: "success",
+  data: 3
+};
+
 export const getDetailTransactionMock = {
   message: "success",
   data: {
