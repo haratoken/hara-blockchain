@@ -3,7 +3,7 @@ import { getBalanceMock, getBlockMock, getDetailTransactionMock, getTransactions
 
 export default class HaraTokenSDK {
   constructor(NEED_MOCK) {
-    this.endpoint = process.env.WEBPACK_ENV == "build" ? "http://192.168.99.100:3000" : "http://scan-api.haratoken.app";
+    this.endpoint = process.env.WEBPACK_ENV == "dev" ? "http://192.168.99.100:3000" : "http://scan-api.haratoken.app";
 
     this.is_mock = NEED_MOCK;
 
