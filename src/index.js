@@ -3,7 +3,7 @@ import { getBalanceMock, getBlockMock, getDetailTransactionMock, getTransactions
 
 export default class HaraTokenSDK {
   constructor(NEED_MOCK) {
-    this.endpoint = process.env.WEBPACK_ENV == "dev" ? "http://192.168.99.100:3000" : "http://scan-api.haratoken.app";
+    this.endpoint = process.env.WEBPACK_ENV == "dev" ? "http://192.168.99.100:3000" : "http://scan-api.haratoken.app/scan";
 
     this.is_mock = NEED_MOCK;
 
@@ -25,14 +25,35 @@ export default class HaraTokenSDK {
     return _result.data;
   };
 
-  _getBlocks = async (page = 0, limit = 10) => {
+  _getBlocks = async (lastSortKey = false, limit = 10) => {
     if(this.is_mock) return getBlockMock;
 
+    let _params = {
+      last_sort_key: lastSortKey,
+      limit: limit
+    }
+
+    lastSortKey == false || !lastSortKey && delete _params.last_sort_key;
+
     let _result = await Axios.get(this.endpoint + "/get_blocks", {
-      params: {
-        page: page,
-        limit: limit
-      }
+      params: _params
+    });
+
+    return _result.data;
+  };
+
+  _getTransactions = async (lastSortKey = false, limit) => {
+    if(this.is_mock) return getTransactionsMock;
+
+    let _params = {
+      last_sort_key: lastSortKey,
+      limit: limit
+    }
+
+    lastSortKey == false || !lastSortKey && delete _params.last_sort_key;
+
+    let _result = await Axios.get(this.endpoint + "/get_transactions", {
+      params: _params
     });
 
     return _result.data;
@@ -44,19 +65,6 @@ export default class HaraTokenSDK {
     let _result = await Axios.get(this.endpoint + "/get_detail_transaction", {
       params: {
         txhash: txhash
-      }
-    });
-
-    return _result.data;
-  };
-
-  _getTransactions = async (page, limit) => {
-    if(this.is_mock) return getTransactionsMock;
-
-    let _result = await Axios.get(this.endpoint + "/get_transactions", {
-      params: {
-        page: page,
-        limit: limit
       }
     });
 
@@ -100,12 +108,12 @@ export default class HaraTokenSDK {
     return _result.data;
   }
 
-  _getDetailBlock = async (block_hash) => {
+  _getDetailBlock = async (blockHash) => {
     if(this.is_mock) return getDetailBlockMock;
 
     let _result = await Axios.get(this.endpoint + "/get_detail_block", {
       params: {
-        block_hash: block_hash,
+        block_hash: blockHash,
       }
     });
 

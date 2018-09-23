@@ -1,6 +1,6 @@
 let HaraTokenSDK = require("./lib/library.min.js").default;
 
-let HartSDK = new HaraTokenSDK(true);
+let HartSDK = new HaraTokenSDK(false);
 
 /**
  * this function get user balance
@@ -11,26 +11,6 @@ let getBalance = HartSDK._getUserBalance(
 );
 
 getBalance.then(function(res) {
-  //   console.log(res);
-});
-
-/**
- * this function get Block list
- * @param {int, int} # (page, limit)
- */
-let getBlocks = HartSDK._getBlocks(1, 10);
-
-getBlocks.then(function(res) {
-     console.log(res);
-});
-
-/**
- * this function get Transaction list
- * @param {int, int} # (page, limit)
- */
-let getTransactions = HartSDK._getTransactions(1, 10);
-
-getTransactions.then(function(res) {
   //   console.log(res);
 });
 
@@ -85,6 +65,94 @@ getLatestBlock.then(function(res) {
 let getTotalTransaction = HartSDK._getTotalTransaction();
 
 getTotalTransaction.then(function(res) {
-  console.log("total transaction", res);
-})
+  // console.log("total transaction", res);
+});
 
+/**
+ * get total transaction
+ */
+let getDetailBlock = HartSDK._getDetailBlock(
+  "0x72e880486b840347f98273b8b24436c211dd7999c55e2bc3ba39521c1de34ee8"
+);
+
+getDetailBlock.then(function(res) {
+  // console.log("detail block", res);
+});
+
+/**
+ * ==================================================
+ * infinite scroll with get_blocks and get_transactions example
+ */
+
+/**
+ * this function get Block list
+ * @param {int, int} # (page, limit)
+ */
+let limit = 10
+let getBlocks = HartSDK._getBlocks(false, limit);
+
+getBlocks.then(function(res) {
+  // validate here if res return message failed
+  if(res.message == "failed") {
+    return;
+  }
+
+  let lastSortKey = false;
+  
+  res.data.map((val, key) => {
+    lastSortKey = val.sort_key;
+
+    console.log(val.sort_key);
+  })
+
+  // or get last with array and store this to your cookies or another state management
+  lastSortKey = "sort_key" in res.data[limit - 1] ? res.data[limit-1].sort_key : false;
+  
+  if(!lastSortKey) {
+    return;
+  }
+
+  console.log("========");
+
+  let getAnotherBlocks = HartSDK._getBlocks(lastSortKey, 10);
+  
+  getAnotherBlocks.then(function(res) {
+    res.data.map((val, key) => {
+      lastSortKey = val.sort_key;
+  
+      console.log(val.sort_key);
+    })
+  });
+});
+
+/**
+ * get transaction same as getBlocks
+ */
+let getTransactions = HartSDK._getTransactions(false, 3);
+
+getTransactions.then(function(res) {
+  // validate here if res return message failed
+  if(res.message == "failed") {
+    return;
+  }
+
+  let lastSortKey = false;
+  
+  res.data.map((val, key) => {
+    lastSortKey = val.sort_key;
+
+    console.log(val.sort_key);
+  })
+
+  console.log("========");
+
+  let getAnotherTx = HartSDK._getTransactions(lastSortKey, 10);
+  
+  getAnotherTx.then(function(res) {
+    res.data.map((val, key) => {
+      lastSortKey = val.sort_key;
+  
+      console.log(val.sort_key);
+    })
+  });
+});
