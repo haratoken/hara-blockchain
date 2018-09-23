@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { getBalanceMock, getBlockMock, getDetailTransactionMock, getTransactionsMock, getTotalTransaction } from "./mock_data";
+import { getBalanceMock, getBlockMock, getDetailTransactionMock, getTransactionsMock, getTotalTransaction, getDetailBlockMock } from "./mock_data";
 
 export default class HaraTokenSDK {
   constructor(NEED_MOCK) {
@@ -96,6 +96,18 @@ export default class HaraTokenSDK {
       params: {
         function: functionName,
         params: JSON.stringify(params)
+      }
+    });
+
+    return _result.data;
+  }
+
+  _getDetailBlock = async (block_hash) => {
+    if(this.is_mock) return getDetailBlockMock;
+
+    let _result = await Axios.get(this.endpoint + "/get_detail_block", {
+      params: {
+        block_hash: block_hash,
       }
     });
 
