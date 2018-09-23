@@ -1,4 +1,4 @@
-let HaraTokenSDK = require("./lib/library").default;
+let HaraTokenSDK = require("./lib/library.min.js").default;
 
 let HartSDK = new HaraTokenSDK(true);
 
@@ -21,7 +21,7 @@ getBalance.then(function(res) {
 let getBlocks = HartSDK._getBlocks(1, 10);
 
 getBlocks.then(function(res) {
-  //   console.log(res);
+     console.log(res);
 });
 
 /**
