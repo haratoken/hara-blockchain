@@ -156,3 +156,32 @@ getTransactions.then(function(res) {
     })
   });
 });
+
+let getTransactionsAlt = HartSDK._getTransactionsAlt(false, 3);
+
+getTransactionsAlt.then(function(res) {
+  // validate here if res return message failed
+  if(res.message == "failed") {
+    return;
+  }
+
+  let lastSortKey = false;
+  
+  res.data.map((val, key) => {
+    lastSortKey = val.sort_key;
+
+    console.log(val.sort_key);
+  })
+
+  console.log("========");
+
+  let getAnotherTx = HartSDK._getTransactionsAlt(lastSortKey, 10);
+  
+  getAnotherTx.then(function(res) {
+    res.data.map((val, key) => {
+      lastSortKey = val.sort_key;
+  
+      console.log(val.sort_key);
+    })
+  });
+});
